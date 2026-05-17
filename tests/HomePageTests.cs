@@ -5,7 +5,7 @@ using Xunit;
 
 namespace QuiZs.Tests;
 
-// 1. Тестирование главного меню
+// Тестирование главного меню
 public sealed class HomePageTests : IDisposable
 {
     private readonly TestDatabase _db;
@@ -19,7 +19,7 @@ public sealed class HomePageTests : IDisposable
 
     public void Dispose() => _db.Dispose();
 
-    // 1.1 Список викторин отображается в алфавитном порядке
+    // Список викторин отображается в алфавитном порядке
     [Fact]
     public async Task GetQuizList_ReturnsSortedAlphabetically()
     {
@@ -34,7 +34,7 @@ public sealed class HomePageTests : IDisposable
         Assert.Equal("Физика", list[2].Title);
     }
 
-    // 1.2 Сортировка без учёта регистра символов
+    // Сортировка без учёта регистра символов
     [Fact]
     public async Task GetQuizList_SortingIsCaseInsensitive()
     {
@@ -49,7 +49,7 @@ public sealed class HomePageTests : IDisposable
         Assert.Equal("Химия", list[2].Title);
     }
 
-    // 1.3 Пустой список при отсутствии викторин
+    // Пустой список при отсутствии викторин
     [Fact]
     public async Task GetQuizList_ReturnsEmptyList_WhenNoQuizzes()
     {
@@ -58,7 +58,7 @@ public sealed class HomePageTests : IDisposable
         Assert.Empty(list);
     }
 
-    // 1.4 Создание викторины - список обновляется
+    // Создание викторины - список обновляется
     [Fact]
     public async Task CreateQuiz_AppearsInList()
     {
@@ -70,7 +70,7 @@ public sealed class HomePageTests : IDisposable
         Assert.Equal("Новая викторина", list[0].Title);
     }
 
-    // 1.5 Редактирование - существующая викторина загружается по Id
+    // Редактирование - существующая викторина загружается по Id
     [Fact]
     public async Task EditQuiz_ExistingQuizCanBeLoaded()
     {
@@ -82,7 +82,7 @@ public sealed class HomePageTests : IDisposable
         Assert.Equal("История", loaded.Title);
     }
 
-    // 1.6 Редактирование - несуществующая викторина возвращает null
+    // Редактирование - несуществующая викторина возвращает null
     [Fact]
     public async Task EditQuiz_ReturnsNull_WhenQuizNotFound()
     {
@@ -91,7 +91,7 @@ public sealed class HomePageTests : IDisposable
         Assert.Null(loaded);
     }
 
-    // 1.7 Подтверждение удаления: если пользователь подтвердил - викторина удаляется из списка
+    // Подтверждение удаления: если пользователь подтвердил - викторина удаляется из списка
     [Fact]
     public async Task DeleteQuiz_AfterConfirmation_RemovesFromList()
     {
@@ -105,7 +105,7 @@ public sealed class HomePageTests : IDisposable
         Assert.Empty(list);
     }
 
-    // 1.8 Подтверждение удаления: если пользователь отказался - викторина остаётся в списке
+    // Подтверждение удаления: если пользователь отказался - викторина остаётся в списке
     [Fact]
     public async Task DeleteQuiz_WhenCancelled_QuizRemainsInList()
     {
@@ -119,7 +119,7 @@ public sealed class HomePageTests : IDisposable
         Assert.Single(list);
     }
 
-    // 1.9 Удаление несуществующей викторины не вызывает ошибку
+    // Удаление несуществующей викторины не вызывает ошибку
     [Fact]
     public async Task DeleteQuiz_NonExistingId_DoesNotThrow()
     {
@@ -128,7 +128,7 @@ public sealed class HomePageTests : IDisposable
         Assert.Null(exception);
     }
 
-    // 1.10 Запуск викторины в режиме «Демонстрация»
+    // Запуск викторины в режиме «Демонстрация»
     [Fact]
     public async Task StartDemo_QuizLoadedWithCorrectMode()
     {
@@ -142,7 +142,7 @@ public sealed class HomePageTests : IDisposable
         Assert.NotEmpty(quiz.Questions);
     }
 
-    // 1.11 Запуск викторины в режиме «Прохождение»
+    // Запуск викторины в режиме «Прохождение»
     [Fact]
     public async Task StartPass_QuizLoadedWithCorrectMode()
     {
@@ -156,7 +156,7 @@ public sealed class HomePageTests : IDisposable
         Assert.NotEmpty(quiz.Questions);
     }
 
-    // 1.12 Запуск недоступен, если викторина не содержит вопросов
+    // Запуск недоступен, если викторина не содержит вопросов
     [Fact]
     public async Task StartQuiz_WithNoQuestions_ShouldBeBlocked()
     {

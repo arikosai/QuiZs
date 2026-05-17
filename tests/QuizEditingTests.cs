@@ -5,7 +5,7 @@ using Xunit;
 
 namespace QuiZs.Tests;
 
-// 3. Тестирование редактирования викторины
+// Тестирование редактирования викторины
 public sealed class QuizEditingTests : IDisposable
 {
     private readonly TestDatabase _db;
@@ -19,7 +19,7 @@ public sealed class QuizEditingTests : IDisposable
 
     public void Dispose() => _db.Dispose();
 
-    // 3.1 Изменение текста вопроса сохраняется
+    // Изменение текста вопроса сохраняется
     [Fact]
     public async Task EditQuiz_ChangeQuestionText_IsPersisted()
     {
@@ -54,7 +54,7 @@ public sealed class QuizEditingTests : IDisposable
         Assert.Equal("Изменённый вопрос", loaded.Questions[0].Text);
     }
 
-    // 3.2 Добавление нового вопроса увеличивает их количество
+    // Добавление нового вопроса увеличивает их количество
     [Fact]
     public async Task EditQuiz_AddQuestion_QuestionCountIncreases()
     {
@@ -80,7 +80,7 @@ public sealed class QuizEditingTests : IDisposable
         Assert.Equal(3, list[0].QuestionCount);
     }
 
-    // 3.3 Удаление вопроса уменьшает их количество
+    // Удаление вопроса уменьшает их количество
     [Fact]
     public async Task EditQuiz_RemoveQuestion_QuestionCountDecreases()
     {
@@ -104,7 +104,7 @@ public sealed class QuizEditingTests : IDisposable
         Assert.Equal(2, list[0].QuestionCount);
     }
 
-    // 3.4 Изменение текста варианта ответа сохраняется
+    // Изменение текста варианта ответа сохраняется
     [Fact]
     public async Task EditQuiz_ChangeAnswerText_IsPersisted()
     {
@@ -128,7 +128,7 @@ public sealed class QuizEditingTests : IDisposable
         Assert.Equal("Изменённый вариант", loaded.Questions[0].Answers[0].Text);
     }
 
-    // 3.5 Изменение правильного ответа сохраняется
+    // Изменение правильного ответа сохраняется
     [Fact]
     public async Task EditQuiz_ChangeCorrectAnswer_IsPersisted()
     {
@@ -155,7 +155,7 @@ public sealed class QuizEditingTests : IDisposable
         Assert.True(loaded.Questions[0].Answers[2].IsCorrect);
     }
 
-    // 3.6 Изменение названия викторины сохраняется
+    // Изменение названия викторины сохраняется
     [Fact]
     public async Task EditQuiz_ChangeTitle_IsPersisted()
     {
@@ -177,7 +177,7 @@ public sealed class QuizEditingTests : IDisposable
         Assert.Equal("Новое название", list[0].Title);
     }
 
-    // 3.7 При редактировании: если новое название совпадает с другой викториной, добавляется суффикс
+    // При редактировании: если новое название совпадает с другой викториной, добавляется суффикс
     [Fact]
     public async Task EditQuiz_RenameToExistingTitle_GetsNumericSuffix()
     {
@@ -198,7 +198,7 @@ public sealed class QuizEditingTests : IDisposable
         Assert.Equal("Биология 1", savedTitle);
     }
 
-    // 3.8 При редактировании: название не меняется - суффикс не добавляется
+    // При редактировании: название не меняется - суффикс не добавляется
     [Fact]
     public async Task EditQuiz_KeepSameTitle_NoSuffixAdded()
     {
@@ -219,7 +219,7 @@ public sealed class QuizEditingTests : IDisposable
         Assert.Equal("Математика", savedTitle);
     }
 
-    // 3.9 Порядок вопросов сохраняется после редактирования
+    // Порядок вопросов сохраняется после редактирования
     [Fact]
     public async Task EditQuiz_QuestionOrderIsPreserved()
     {

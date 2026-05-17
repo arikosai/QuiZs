@@ -4,10 +4,10 @@ using Xunit;
 
 namespace QuiZs.Tests;
 
-// 4. Тестирование режима прохождения
+// Тестирование режима прохождения
 public sealed class QuizPassModeTests
 {
-    // 4.1 Вопросы и ответы доступны для отображения
+    // Вопросы и ответы доступны для отображения
     [Fact]
     public void PassMode_QuestionsAndAnswersAreAvailable()
     {
@@ -18,7 +18,7 @@ public sealed class QuizPassModeTests
             Assert.Equal(DraftQuestion.AnswerCount, q.Answers.Count);
     }
 
-    // 4.2 Навигация вперёд увеличивает индекс вопроса
+    // Навигация вперёд увеличивает индекс вопроса
     [Fact]
     public void PassMode_MoveNext_IncrementsQuestionIndex()
     {
@@ -30,7 +30,7 @@ public sealed class QuizPassModeTests
         Assert.Equal(1, state.CurrentIndex);
     }
 
-    // 4.3 Навигация назад уменьшает индекс вопроса
+    // Навигация назад уменьшает индекс вопроса
     [Fact]
     public void PassMode_MovePrevious_DecrementsQuestionIndex()
     {
@@ -43,7 +43,7 @@ public sealed class QuizPassModeTests
         Assert.Equal(0, state.CurrentIndex);
     }
 
-    // 4.4 Нельзя перейти назад с первого вопроса
+    // Нельзя перейти назад с первого вопроса
     [Fact]
     public void PassMode_MovePreviousFromFirst_IndexStaysAtZero()
     {
@@ -55,7 +55,7 @@ public sealed class QuizPassModeTests
         Assert.Equal(0, state.CurrentIndex);
     }
 
-    // 4.5 Нельзя перейти вперёд за последний вопрос
+    // Нельзя перейти вперёд за последний вопрос
     [Fact]
     public void PassMode_MoveNextOnLast_IsLastQuestion()
     {
@@ -68,7 +68,7 @@ public sealed class QuizPassModeTests
         Assert.True(isLast);
     }
 
-    // 4.6 Выбор варианта ответа сохраняется
+    // Выбор варианта ответа сохраняется
     [Fact]
     public void PassMode_SelectAnswer_IsRecorded()
     {
@@ -80,7 +80,7 @@ public sealed class QuizPassModeTests
         Assert.Equal(2, state.SelectedAnswers[0]);
     }
 
-    // 4.7 После выбора ответа повторный выбор не меняет результат
+    // После выбора ответа повторный выбор не меняет результат
     [Fact]
     public void PassMode_SelectAnswer_CannotBeChangedAfterSelection()
     {
@@ -95,7 +95,7 @@ public sealed class QuizPassModeTests
         Assert.Equal(0, state.SelectedAnswers[0]);
     }
 
-    // 4.8 Правильный ответ должен отображаться зелёным цветом
+    // Правильный ответ должен отображаться зелёным цветом
     [Fact]
     public void PassMode_CorrectAnswer_IsMarkedGreen()
     {
@@ -110,7 +110,7 @@ public sealed class QuizPassModeTests
         Assert.True(isCorrect);
     }
 
-    // 4.9 Неправильный ответ должен отображаться красным цветом
+    // Неправильный ответ должен отображаться красным цветом
     [Fact]
     public void PassMode_WrongAnswer_IsMarkedRed()
     {
@@ -125,7 +125,7 @@ public sealed class QuizPassModeTests
         Assert.False(isCorrect);
     }
 
-    // 4.10 Ответы для разных вопросов хранятся независимо
+    // Ответы для разных вопросов хранятся независимо
     [Fact]
     public void PassMode_AnswersForDifferentQuestions_AreIndependent()
     {
@@ -144,10 +144,10 @@ public sealed class QuizPassModeTests
     }
 }
 
-// 4. Тестирование режима прохождения. Результаты викторины
+// Тестирование режима прохождения. Результаты викторины
 public sealed class QuizResultsTests
 {
-    // 4.11 Все ответы правильные — счётчик равен числу вопросов
+    // Все ответы правильные — счётчик равен числу вопросов
     [Fact]
     public void CountCorrectAnswers_AllCorrect_ReturnsTotal()
     {
@@ -159,7 +159,7 @@ public sealed class QuizResultsTests
         Assert.Equal(3, correct);
     }
 
-    // 4.12 Все ответы неправильные — счётчик равен нулю
+    // Все ответы неправильные — счётчик равен нулю
     [Fact]
     public void CountCorrectAnswers_NoneCorrect_ReturnsZero()
     {
@@ -171,7 +171,7 @@ public sealed class QuizResultsTests
         Assert.Equal(0, correct);
     }
 
-    // 4.13 Часть ответов правильная — счётчик корректен
+    // Часть ответов правильная — счётчик корректен
     [Fact]
     public void CountCorrectAnswers_SomeCorrect_ReturnsPartialCount()
     {
@@ -183,7 +183,7 @@ public sealed class QuizResultsTests
         Assert.Equal(2, correct);
     }
 
-    // 4.14 Пропущенные вопросы (null) не считаются правильными
+    // Пропущенные вопросы (null) не считаются правильными
     [Fact]
     public void CountCorrectAnswers_SkippedAnswers_NotCounted()
     {
@@ -195,7 +195,7 @@ public sealed class QuizResultsTests
         Assert.Equal(1, correct);
     }
 
-    // 4.15 Результаты доступны только в режиме «Прохождение»
+    // Результаты доступны только в режиме «Прохождение»
     [Theory]
     [InlineData(QuizRunMode.Pass, true)]
     [InlineData(QuizRunMode.Demo, false)]
@@ -225,10 +225,10 @@ public sealed class QuizResultsTests
 }
 
 
-// 5. Тестирование режима демонстрации
+// Тестирование режима демонстрации
 public sealed class QuizDemoModeTests
 {
-    // 5.1 Вопросы и варианты ответа доступны для отображения
+    // Вопросы и варианты ответа доступны для отображения
     [Fact]
     public void DemoMode_QuestionsAndAnswersAreAvailable()
     {
@@ -240,7 +240,7 @@ public sealed class QuizDemoModeTests
             Assert.Equal(DraftQuestion.AnswerCount, q.Answers.Count);
     }
 
-    // 5.2 Навигация вперёд работает в режиме демонстрации
+    // Навигация вперёд работает в режиме демонстрации
     [Fact]
     public void DemoMode_MoveNext_IncrementsIndex()
     {
@@ -252,7 +252,7 @@ public sealed class QuizDemoModeTests
         Assert.Equal(1, state.CurrentIndex);
     }
 
-    // 5.3 Навигация назад работает в режиме демонстрации
+    // Навигация назад работает в режиме демонстрации
     [Fact]
     public void DemoMode_MovePrevious_DecrementsIndex()
     {
@@ -265,7 +265,7 @@ public sealed class QuizDemoModeTests
         Assert.Equal(0, state.CurrentIndex);
     }
 
-    // 5.4 В режиме демонстрации ответы не фиксируются
+    // В режиме демонстрации ответы не фиксируются
     [Fact]
     public void DemoMode_AnswerSelection_IsNotTracked()
     {
@@ -275,7 +275,7 @@ public sealed class QuizDemoModeTests
         Assert.All(state.SelectedAnswers, a => Assert.Null(a));
     }
 
-    // 5.5 На последнем вопросе определяется конец демонстрации
+    // На последнем вопросе определяется конец демонстрации
     [Fact]
     public void DemoMode_LastQuestion_IsDetectedCorrectly()
     {
@@ -286,7 +286,7 @@ public sealed class QuizDemoModeTests
         Assert.True(state.IsLastQuestion);
     }
 
-    // 5.6 Режим корректно передаётся в объект состояния
+    // Режим корректно передаётся в объект состояния
     [Fact]
     public void DemoMode_ModeIsSetCorrectly()
     {

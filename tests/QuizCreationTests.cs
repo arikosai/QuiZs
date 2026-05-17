@@ -5,7 +5,7 @@ using Xunit;
 
 namespace QuiZs.Tests;
 
-// 2. Тестирование создания викторины
+// Тестирование создания викторины
 public sealed class QuizCreationTests : IDisposable
 {
     private readonly TestDatabase _db;
@@ -19,7 +19,7 @@ public sealed class QuizCreationTests : IDisposable
 
     public void Dispose() => _db.Dispose();
 
-    // 2.1 Сохранение викторины с названием
+    // Сохранение викторины с названием
     [Fact]
     public async Task SaveQuiz_WithTitle_TitleIsPersisted()
     {
@@ -32,7 +32,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.Equal("Моя первая викторина", list[0].Title);
     }
 
-    // 2.2 Название обрезается от лишних пробелов
+    // Название обрезается от лишних пробелов
     [Fact]
     public async Task SaveQuiz_TitleWithSpaces_IsTrimmed()
     {
@@ -44,7 +44,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.Equal("Пробелы вокруг", list[0].Title);
     }
 
-    // 2.3 Пустое название вызывает исключение
+    // Пустое название вызывает исключение
     [Fact]
     public async Task SaveQuiz_EmptyTitle_ThrowsArgumentException()
     {
@@ -53,7 +53,7 @@ public sealed class QuizCreationTests : IDisposable
         await Assert.ThrowsAsync<ArgumentException>(() => _repo.SaveQuizAsync(quiz));
     }
 
-    // 2.4 Добавление вопросов: вопросы сохраняются
+    // Добавление вопросов: вопросы сохраняются
     [Fact]
     public async Task SaveQuiz_WithQuestions_QuestionsArePersisted()
     {
@@ -65,7 +65,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.Equal(3, list[0].QuestionCount);
     }
 
-    // 2.5 Каждый вопрос содержит ровно 4 варианта ответа
+    // Каждый вопрос содержит ровно 4 варианта ответа
     [Fact]
     public async Task SaveQuiz_EachQuestionHasExactlyFourAnswers()
     {
@@ -83,7 +83,7 @@ public sealed class QuizCreationTests : IDisposable
         }
     }
 
-    // 2.6 Каждый вопрос содержит ровно один правильный ответ
+    // Каждый вопрос содержит ровно один правильный ответ
     [Fact]
     public async Task SaveQuiz_EachQuestionHasExactlyOneCorrectAnswer()
     {
@@ -102,7 +102,7 @@ public sealed class QuizCreationTests : IDisposable
         }
     }
 
-    // 2.7 Валидация: нельзя сохранить викторину менее чем с 2 вопросами
+    // Валидация: нельзя сохранить викторину менее чем с 2 вопросами
     [Theory]
     [InlineData(0)]
     [InlineData(1)]
@@ -116,7 +116,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.False(canSave);
     }
 
-    // 2.8 Валидация: викторину с 2 и более вопросами можно сохранить
+    // Валидация: викторину с 2 и более вопросами можно сохранить
     [Theory]
     [InlineData(2)]
     [InlineData(5)]
@@ -130,7 +130,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.True(canSave);
     }
 
-    // 2.9 Валидация вопроса: пустой текст вопроса - ошибка
+    // Валидация вопроса: пустой текст вопроса - ошибка
     [Fact]
     public void ValidateQuestion_EmptyText_IsInvalid()
     {
@@ -146,7 +146,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.Contains("вопрос", message, StringComparison.OrdinalIgnoreCase);
     }
 
-    // 2.10 Валидация вопроса: незаполненный вариант ответа - ошибка
+    // Валидация вопроса: незаполненный вариант ответа - ошибка
     [Fact]
     public void ValidateQuestion_EmptyAnswer_IsInvalid()
     {
@@ -162,7 +162,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.Contains("вариант ответа", message, StringComparison.OrdinalIgnoreCase);
     }
 
-    // 2.11 Валидация вопроса: все поля заполнены - вопрос валиден
+    // Валидация вопроса: все поля заполнены - вопрос валиден
     [Fact]
     public void ValidateQuestion_AllFieldsFilled_IsValid()
     {
@@ -179,7 +179,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.Empty(message);
     }
 
-    // 2.12 Уникальность названия: одинаковые названия получают числовой суффикс
+    // Уникальность названия: одинаковые названия получают числовой суффикс
     [Fact]
     public async Task SaveQuiz_DuplicateTitle_SameCase_GetsNumericSuffix()
     {
@@ -191,7 +191,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.Equal("История 1", savedTitle);
     }
 
-    // 2.13 Уникальность названия: три викторины с одним именем получают суффиксы 1, 2 и т.д.
+    // Уникальность названия: три викторины с одним именем получают суффиксы 1, 2 и т.д.
     [Fact]
     public async Task SaveQuiz_ThreeDuplicateTitles_GetIncrementingSuffixes()
     {
@@ -203,7 +203,7 @@ public sealed class QuizCreationTests : IDisposable
         Assert.Equal("Химия 2", title3);
     }
 
-    // 2.14 Уникальность названия учитывает регистр: «история» и «История» — разные названия, суффикс не добавляется
+    // Уникальность названия учитывает регистр: «история» и «История» — разные названия, суффикс не добавляется
     [Fact]
     public async Task SaveQuiz_DifferentCase_TreatedAsDifferentTitle()
     {
